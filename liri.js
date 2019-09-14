@@ -2,23 +2,37 @@ require("dotenv").config();
 
 var keys = require("./keys.js");
 
-var Spotify = require ('node-spotify-api');
-var axios = require ('axios');
-var moment = require ('moment');
+var Spotify = require('node-spotify-api');
+//to get omdb and bands in town
+var axios = require('axios');
+var moment = require('moment');
 
 var spotify = new Spotify(keys.spotify);
 
 var fs = require('fs');
 
-var nodeArgs = process.argv;
-console.log(nodeArgs)
-var userInput = "";
+var userInput = process.argv.slice(3).join("+");
+console.log(userInput);
 
-for (var i = 3; i < nodeArgs.length; i++) {
-    
-    if (i > 3 && i < nodeArgs.length) {
-        userInput = userInput + "+" + nodeArgs[i];
-    } else {
-        userInput += nodeArgs[i];
+var userAction = process.argv[2];
+console.log(userAction);
+//console.log(process.argv);
+runLiri();
+
+function runLiri() {
+    switch (userAction) {
+        case "concert-this":
+            console.log("concert this man");
+
+            break;
+        case "spotify-this-song":
+            console.log("concert this man");
+
+            break;
+        case "movie-this":
+            console.log("concert this man");
+
+            break;
+
     };
 };
