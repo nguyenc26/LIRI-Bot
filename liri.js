@@ -23,7 +23,7 @@ switch (userAction) {
         getBands(userInput);
         break;
     case "spotify-this-song":
-        
+
         console.log("concert this man");
 
         break;
@@ -37,7 +37,9 @@ switch (userAction) {
 function getBands() {
     axios.get("https://rest.bandsintown.com/artists/" + userInput + "/events?app_id=codingbootcamp")
         .then(function (response) {
-            console.log(response.data[0].venue.name);
+            for (var i = 0; i < response.data.length; i++) {
+                console.log("Venue: " + response.data[i].venue.name + "\nVenue Location: " + response.data[i].venue.city + "," + response.data[i].venue.region + "\nDate: " + response.data[i].venue.datetime + "\n================");
+            }
         })
         .catch(function (error) {
             if (error.response) {
