@@ -5,7 +5,7 @@ var keys = require("./keys.js");
 var Spotify = require('node-spotify-api');
 //to get omdb and bands in town
 var axios = require('axios');
-//var moment = require('moment');
+var moment = require('moment');
 
 //var spotify = new Spotify(keys.spotify);
 
@@ -38,7 +38,9 @@ function getBands() {
     axios.get("https://rest.bandsintown.com/artists/" + userInput + "/events?app_id=codingbootcamp")
         .then(function (response) {
             for (var i = 0; i < response.data.length; i++) {
-                console.log("Venue: " + response.data[i].venue.name + "\nVenue Location: " + response.data[i].venue.city + "," + response.data[i].venue.region + "\nDate: " + response.data[i].venue.datetime + "\n================");
+                var date = response.data[i].datetime;
+                date = moment(date).format('L');
+                console.log("Venue: " + response.data[i].venue.name + "\nVenue Location: " + response.data[i].venue.city + "," + response.data[i].venue.region + " " + response.data[i].venue.country + "\nDate: " + date + "\n================");
             }
         })
         .catch(function (error) {
