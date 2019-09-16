@@ -26,7 +26,9 @@ switch (userAction) {
         getSongs(userInput);
         break;
     case "movie-this":
-        console.log("concert this man");
+        getMovies();
+        break;
+    case "do-what-it-says":
 
         break;
 
@@ -37,7 +39,7 @@ function getBands() {
         .then(function (response) {
             for (var i = 0; i < response.data.length; i++) {
                 var date = moment(response.data[i].datetime).format('L');
-                console.log("Venue: " + response.data[i].venue.name + "\nVenue Location: " + response.data[i].venue.city + "," + response.data[i].venue.region + " " + response.data[i].venue.country + "\nDate: " + date + "\n================");
+                console.log("\nVenue: " + response.data[i].venue.name + "\nVenue Location: " + response.data[i].venue.city + "," + response.data[i].venue.region + " " + response.data[i].venue.country + "\nDate: " + date + "\n================");
             }
         })
         .catch(function (error) {
@@ -76,4 +78,38 @@ function getSongs() {
         .catch(function (err) {
             console.log(err);
         })
+};
+
+function getMovies() {
+    if (!userInput) {
+        userInput = "Mr. Nobody"
+        console.log("================");
+        console.log("If you haven't watched 'Mr. Nobody,' then you should: http://www.imdb.com/title/tt0485947/");
+        console.log("It's on Netflix!");
+    }
+    axios.get("http://www.omdbapi.com/?t=" + userInput + "&y=&plot=short&apikey=trilogy").then(
+        function (response) {
+            var info = response.data;
+            console.log("\nTitle: " + info.Title + "\nRelease Year: " + info.Year + "\nIMDB Rating: " + info.imdbRating + "\nRotten Tomatoes Rating: " + info.Ratings[1].Value + "\nCountry of Production: " + info.Country + "\nLanguage: " + info.Language + "\nPlot: " + info.Plot + "\nActors in the Movie: " + info.Actors);
+        })
+        .catch(function (error) {
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                console.log("---------------Data---------------");
+                console.log(error.response.data);
+                console.log("---------------Status---------------");
+                console.log(error.response.status);
+                console.log("---------------Status---------------");
+                console.log(error.response.headers);
+            } else if (error.request) {
+                // The request was made but no response was received
+                // `error.request` is an object that comes back with details pertaining to the error that occurred.
+                console.log(error.request);
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                console.log("Error", error.message);
+            }
+            console.log(error.config);
+        });
 };
