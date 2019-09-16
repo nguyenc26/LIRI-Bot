@@ -7,7 +7,7 @@ var Spotify = require('node-spotify-api');
 var axios = require('axios');
 var moment = require('moment');
 
-//var spotify = new Spotify(keys.spotify);
+var spotify = new Spotify(keys.spotify);
 
 var fs = require('fs');
 
@@ -23,9 +23,7 @@ switch (userAction) {
         getBands(userInput);
         break;
     case "spotify-this-song":
-
-        console.log("concert this man");
-
+        getSongs(userInput);
         break;
     case "movie-this":
         console.log("concert this man");
@@ -38,8 +36,7 @@ function getBands() {
     axios.get("https://rest.bandsintown.com/artists/" + userInput + "/events?app_id=codingbootcamp")
         .then(function (response) {
             for (var i = 0; i < response.data.length; i++) {
-                var date = response.data[i].datetime;
-                date = moment(date).format('L');
+                var date = moment(response.data[i].datetime).format('L');
                 console.log("Venue: " + response.data[i].venue.name + "\nVenue Location: " + response.data[i].venue.city + "," + response.data[i].venue.region + " " + response.data[i].venue.country + "\nDate: " + date + "\n================");
             }
         })
@@ -63,5 +60,20 @@ function getBands() {
             }
             console.log(error.config);
         });
-    console.log("concert this action");
-}
+};
+
+function getSongs() {
+    if (!userInput) {
+        userInput = "The Sign"
+    }
+    spotify
+        .search({ type: 'track', query: userInput, limit: 10 })
+        .then(function (response) {
+            var song = response.tracks.items[0]
+
+            console.log("\nSong Name: " + song.name + "\nArtist(s): " + song.artists[0].name + "\nAlbum Name: " + song.album.name + "\nPreview Link: " + song.preview_url);
+        })
+        .catch(function (err) {
+            console.log(err);
+        })
+};
