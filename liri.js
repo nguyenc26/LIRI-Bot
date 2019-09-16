@@ -26,12 +26,11 @@ switch (userAction) {
         getSongs(userInput);
         break;
     case "movie-this":
-        getMovies();
+        getMovies(userInput);
         break;
     case "do-what-it-says":
-
+        doIT(userInput);
         break;
-
 };
 
 function getBands() {
@@ -112,4 +111,31 @@ function getMovies() {
             }
             console.log(error.config);
         });
+};
+
+function doIT() {
+    fs.readFile("random.txt", "utf8", function (err, response) {
+        if (err) {
+            return console.log(err);
+        }
+    
+        var Info = response.split(",");
+        console.log(response)
+        userAction = Info[0];
+        userInput = Info[1];
+        switch (userAction) {
+            case "concert-this":
+                getBands(userInput);
+                break;
+            case "spotify-this-song":
+                getSongs(userInput);
+                break;
+            case "movie-this":
+                getMovies(userInput);
+                break;
+            default:
+                break;
+
+        };
+    });
 };
