@@ -34,11 +34,24 @@ switch (userAction) {
 };
 
 function getBands() {
+    var divider = "\n------------------------------------------------------------\n\n";
+
     axios.get("https://rest.bandsintown.com/artists/" + userInput + "/events?app_id=codingbootcamp")
         .then(function (response) {
             for (var i = 0; i < response.data.length; i++) {
-                var date = moment(response.data[i].datetime).format('L');
-                console.log("\nVenue: " + response.data[i].venue.name + "\nVenue Location: " + response.data[i].venue.city + "," + response.data[i].venue.region + " " + response.data[i].venue.country + "\nDate: " + date + "\n================");
+                var jsonData = response.data[i];
+                var date = moment(jsonData.datetime).format('L');
+
+                var bandInfo = [
+                    "Venue: " + jsonData.venue.name,
+                    "Venue Location: " + jsonData.venue.city + "," + jsonData.venue.region + " " + jsonData.venue.country,
+                    "Date: " + date,
+                    "========================================================"
+                ].join("\n");
+                fs.appendFile("log.txt", bandInfo + divider, function (err) {
+                    if (err) throw err;
+                    console.log(bandInfo);
+                });
             }
         })
         .catch(function (error) {
@@ -67,12 +80,26 @@ function getSongs() {
     if (!userInput) {
         userInput = "The Sign"
     }
+    var divider = "\n------------------------------------------------------------\n\n";
+
     spotify
         .search({ type: 'track', query: userInput, limit: 10 })
         .then(function (response) {
-            var song = response.tracks.items[0]
+            var song = response.tracks.items[0];
 
-            console.log("\nSong Name: " + song.name + "\nArtist(s): " + song.artists[0].name + "\nAlbum Name: " + song.album.name + "\nPreview Link: " + song.preview_url);
+            var songInfo = [
+                "Song Name: " + song.name,
+                "Artist(s): " + song.artists[0].name,
+                "Album Name: " + song.album.name,
+                "Preview Link: " + song.preview_url,
+                "========================================================"
+            ].join("\n");
+            fs.appendFile("log.txt", songInfo + divider, function (err) {
+                if (err) throw err;
+                console.log(songInfo);
+            });
+
+            console.log();
         })
         .catch(function (err) {
             console.log(err);
@@ -86,10 +113,27 @@ function getMovies() {
         console.log("If you haven't watched 'Mr. Nobody,' then you should: http://www.imdb.com/title/tt0485947/");
         console.log("It's on Netflix!");
     }
+    var divider = "\n------------------------------------------------------------\n\n";
+
     axios.get("http://www.omdbapi.com/?t=" + userInput + "&y=&plot=short&apikey=trilogy").then(
         function (response) {
             var info = response.data;
-            console.log("\nTitle: " + info.Title + "\nRelease Year: " + info.Year + "\nIMDB Rating: " + info.imdbRating + "\nRotten Tomatoes Rating: " + info.Ratings[1].Value + "\nCountry of Production: " + info.Country + "\nLanguage: " + info.Language + "\nPlot: " + info.Plot + "\nActors in the Movie: " + info.Actors);
+
+            var movieInfo = [
+                "Title: " + info.Title,
+                "Release Year: " + info.Year,
+                "IMDB Rating: " + info.imdbRating,
+                "Rotten Tomatoes Rating: " + info.Ratings[1].Value,
+                "Country of Production: " + info.Country,
+                "Language: " + info.Language,
+                "Plot: " + info.Plot,
+                "Actors in the Movie: " + info.Actors,
+                "========================================================"
+            ].join("\n");
+            fs.appendFile("log.txt", movieInfo + divider, function (err) {
+                if (err) throw err;
+                console.log(movieInfo);
+            });
         })
         .catch(function (error) {
             if (error.response) {
@@ -118,7 +162,7 @@ function doIT() {
         if (err) {
             return console.log(err);
         }
-    
+
         var Info = response.split(",");
         console.log(response)
         userAction = Info[0];

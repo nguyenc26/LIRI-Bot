@@ -9,7 +9,7 @@ LIRI is a command line node app that takes in parameters and gives you back data
     
 These paramaters will display information on the command terminal based on what you want to search. 
 
-## How to Run LIRI-Bot
+# How to Run LIRI-Bot
 
 * node liri.js concert-this/spotify-this-song/movie-this/do-what-it-says ```<search parameter here>```
 
@@ -19,7 +19,7 @@ These paramaters will display information on the command terminal based on what 
 -	Venue location
 -	Date of the Event (use moment to format this as "MM/DD/YYYY")
 
-# Spotify-this-song: 
+# spotify-this-song: 
 
 -	Artist(s)
 -	The song's name
@@ -50,3 +50,5 @@ It should run Spotify-this-song for “I want it That way”.
 * Node.js
 * Javascript
 * NPM packages
+
+# Created by Cuong Nguyen 
