@@ -19,6 +19,8 @@ These paramaters will display information on the command terminal based on what 
 -	Venue location
 -	Date of the Event (use moment to format this as "MM/DD/YYYY")
 
+![Screenshot](images\concert-this & do-what-it-says.png)
+
 # spotify-this-song: 
 
 -	Artist(s)
