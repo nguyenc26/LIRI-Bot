@@ -19,7 +19,7 @@ These paramaters will display information on the command terminal based on what 
 -	Venue location
 -	Date of the Event (use moment to format this as "MM/DD/YYYY")
 
-![Screenshot](images/concert-this & do-what-it-says.png)
+![Screen shot](images/concert-this.png)
 
 # spotify-this-song: 
 
@@ -27,6 +27,8 @@ These paramaters will display information on the command terminal based on what 
 -	The song's name
 -	A preview link of the song from Spotify
 -	The album that the song is from
+
+![Screen shot](images/concert-this.png)
 
 # movie-this: 
 
