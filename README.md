@@ -28,7 +28,7 @@ These paramaters will display information on the command terminal based on what 
 -	A preview link of the song from Spotify
 -	The album that the song is from
 
-![Screen shot](images/concert-this.png)
+![Screen shot](images/spotify-this-song.png)
 
 # movie-this: 
 
@@ -41,10 +41,14 @@ These paramaters will display information on the command terminal based on what 
 -	Plot of the movie.
 -	Actors in the movie.
 
+![Screen shot](images/movie-this.png)
+
 # do-what-it-says: 
 
 LIRI will use the text from “random.txt” and call on of LIRI’s commands. 
 It should run Spotify-this-song for “I want it That way”. 
+
+![Screen shot](images/spotify-this-song.png)
 
 # Technologies used:
 
